@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf8">
+    <link rel="stylesheet" href="game.css">
+    <title>Game</title>
+</head>
+<body>
+<h2 th:text="${userName}"></h2>
+<form>
+    <div class="container">
+        <div class="custom-select">
+            <select id="selectMenu" name="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+        <br>
+        <div th:fragment="statisticsFragment">
+            <div th:text="'Generated number: + ' + ${generatedNumber}">Generated number:</div>
+            <p th:text="'Your number:' + ${yourNum">Your number:</p>
+            <p th:text="'Percentage: ' + ${percentage}">Percentage:</p>
+            <p th:text="'Easy average:' + ${easyAverage}">Easy average:</p>
+            <p th:text="'Medium average:' + ${mediumAverage}">Medium average:</p>
+            <p th:text="'Hard average:' + ${hardAverage}">Hard average:</p>
+            <p th:text="'Hardest best result:' + ${hardestBestResult}">Hardest best result:</p>
+        </div>
+        <input id="input" type="number" name="number" required disabled autocomplete="off">
+        <button id="startButton" type="button" onclick="sendInitRequest(difficulty.value)">Start</button>
+        <button id="submitButton" type="button" onclick="submitResult(number.value)" disabled>Submit</button>
+    </div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="select.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
