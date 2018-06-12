@@ -1,10 +1,6 @@
 package com.ubb.web.labs.lab6.service;
 
-import com.ubb.web.labs.lab6.domain.GameEntity;
-import com.ubb.web.labs.lab6.domain.GameInitializationResponse;
-import com.ubb.web.labs.lab6.domain.GameJSON;
-import com.ubb.web.labs.lab6.domain.GameStatisticsResponse;
-import com.ubb.web.labs.lab6.domain.UserEntity;
+import com.ubb.web.labs.lab6.domain.*;
 import com.ubb.web.labs.lab6.repository.GameRepository;
 import com.ubb.web.labs.lab6.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +15,13 @@ public class StatisticsManagerService {
     private UserRepository userRepository;
 
     public GameInitializationResponse initializeStatistics(String userName) {
-        return
+        GameInitializationResponse gameInitializationResponse = new GameInitializationResponse();
+        gameInitializationResponse.setEasyAverage(calculateAveragePercentage(gameRepository.findAllGamesByUserAndDifficulty(userName, "easy")));
+        gameInitializationResponse.setMediumAverage(calculateAveragePercentage(gameRepository.findAllGamesByUserAndDifficulty(userName, "medium")));
+        List<GameEntity> gameEntities = gameRepository.findAllGamesByUserAndDifficulty(userName, "hard");
+        gameInitializationResponse.setHardAverage(calculateAveragePercentage(gameEntities));
+        gameInitializationResponse.setHardestBestResult(calculateMaxPercentage(gameEntities));
+        return gameInitializationResponse;
     }
 
     public GameStatisticsResponse manageStatistics(GameJSON game) {
@@ -52,6 +54,7 @@ public class StatisticsManagerService {
     private String getShorterString(String string1, String string2) {
         return string1.length() < string2.length() ? string1 : string2;
     }
+
     private String getLongerString(String string1, String string2) {
         return string1.length() > string2.length() ? string1 : string2;
     }

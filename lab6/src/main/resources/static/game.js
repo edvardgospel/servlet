@@ -1,7 +1,7 @@
 var seconds;
 var generatedNumber;
 var difficulty;
-var userName = "edvard";
+var userName;
 
 function sendInitRequest(difficulty2) {
     $.ajax({
@@ -43,14 +43,9 @@ function send(yourNumber) {
         userName: userName,
         yourNumber: yourNumber,
         generatedNumber: generatedNumber,
-        difficulty: difficulty,
-        success: function (data) {
-                     console.log("DIS IS GOOD: " + data);
-                },
-        error: function (data) {
-                    console.log("DIS IS SHIT: " + data);
-        }
+        difficulty: difficulty
     }
+
     var requestJson = JSON.stringify(requestObject);
 
     console.log(requestJson);
@@ -59,7 +54,15 @@ function send(yourNumber) {
         type: "post",
         contentType: "application/json",
         dataType: "json",
-        data: requestJson
+        data: requestJson,
+        success:
+            function (data) {
+                renderStatistics(data);
+            },
+        error:
+            function (data) {
+                console.log("ERROR: " + data);
+            }
     });
 }
 
@@ -72,5 +75,17 @@ function createColoredNumber(yourNumber,generatedNumber) {
             coloredNumber += yourNumber.charAt(i).fontcolor("red");
         }
     }
-    return coloredNumber
+    return coloredNumber;
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function renderStatistics(data) {
+    $("#generatedNumber").html("Generated number: " + data.generatedNumber);
+    $("#yourNumber").html("Your number: " + createColoredNumber(data.yourNumber, data.generatedNumber));
+    $("#percentage").html("Percentage: " + data.percentage);
+    $("#"+difficulty+"average").html(capitalizeFirstLetter(difficulty) + " average: " + data.average);
+    $("#hardestBestResult").html("Hardest best result: " + data.hardestBestResult);
 }

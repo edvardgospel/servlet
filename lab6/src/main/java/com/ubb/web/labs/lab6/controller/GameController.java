@@ -22,7 +22,6 @@ public class GameController {
     @Value("${init.parameter.hard}")
     private int[] initHard;
 
-
     @Autowired
     public StatisticsManagerService statisticsCalculatorService;
 
@@ -46,6 +45,9 @@ public class GameController {
     @ResponseBody
     @RequestMapping(value = "/statistics", method = RequestMethod.POST)
     public GameStatisticsResponse manageStatistics(@RequestBody GameJSON gameJSON) {
-        return statisticsCalculatorService.manageStatistics(gameJSON);
+        GameStatisticsResponse gsr = statisticsCalculatorService.manageStatistics(gameJSON);
+        System.out.println("BACKEND:" + gameJSON);
+        System.out.println("BACKEND:" + gsr);
+        return gsr;
     }
 }

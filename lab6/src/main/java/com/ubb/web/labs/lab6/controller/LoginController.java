@@ -32,7 +32,10 @@ public class LoginController {
         if (Objects.nonNull(validatorService.validateData(userName, password))) {
             GameInitializationResponse gameInitializationResponse = statisticsManagerService.initializeStatistics(userName);
             model.addAttribute("userName", userName);
-            model
+            model.addAttribute("easyAverage",gameInitializationResponse.getEasyAverage());
+            model.addAttribute("mediumAverage",gameInitializationResponse.getMediumAverage());
+            model.addAttribute("hardAverage",gameInitializationResponse.getHardAverage());
+            model.addAttribute("hardestBestResult",gameInitializationResponse.getHardestBestResult());
             return "game";
         } else {
             return "redirect:/login.do";

@@ -18,15 +18,15 @@
         </div>
         <br>
         <div th:fragment="statisticsFragment">
-            <div th:text="'Generated number: + ' + ${generatedNumber}">Generated number:</div>
-            <p th:text="'Your number:' + ${yourNum">Your number:</p>
-            <p th:text="'Percentage: ' + ${percentage}">Percentage:</p>
-            <p th:text="'Easy average:' + ${easyAverage}">Easy average:</p>
-            <p th:text="'Medium average:' + ${mediumAverage}">Medium average:</p>
-            <p th:text="'Hard average:' + ${hardAverage}">Hard average:</p>
-            <p th:text="'Hardest best result:' + ${hardestBestResult}">Hardest best result:</p>
+            <p id="generatedNumber">Generated number:</p>
+            <p id="yourNumber">Your number:</p>
+            <p id="percentage">Percentage:</p>
+            <p id="easyAverage" th:text="'Easy average: ' + ${easyAverage}"></p>
+            <p id="mediumAverage" th:text="'Medium average: ' + ${mediumAverage}"></p>
+            <p id="hardAverage" th:text="'Hard average: ' + ${hardAverage}"></p>
+            <p id="hardestBestResult" th:text="'Hardest best result: ' + ${hardestBestResult}"></p>
         </div>
-        <input id="input" type="number" name="number" required disabled autocomplete="off">
+        <input id="input" type="number" name="number" required disabled>
         <button id="startButton" type="button" onclick="sendInitRequest(difficulty.value)">Start</button>
         <button id="submitButton" type="button" onclick="submitResult(number.value)" disabled>Submit</button>
     </div>
