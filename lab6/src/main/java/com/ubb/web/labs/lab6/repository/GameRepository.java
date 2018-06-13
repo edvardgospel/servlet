@@ -8,6 +8,6 @@ import java.util.List;
 
 
 public interface GameRepository extends JpaRepository<GameEntity, Integer> {
-    @Query("SELECT g FROM GameEntity g, UserEntity u WHERE u.userName = ?1 AND g.difficulty = ?2")
-    List<GameEntity> findAllGamesByUserAndDifficulty(String userName, String difficulty);
+    @Query("SELECT g FROM GameEntity g WHERE g.difficulty = ?1")
+    List<GameEntity> findAllGamesByDifficulty(String difficulty);
 }

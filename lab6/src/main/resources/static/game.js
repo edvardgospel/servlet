@@ -1,21 +1,20 @@
 var seconds;
 var generatedNumber;
 var difficulty;
-var userName;
 
-function sendInitRequest(difficulty2) {
+function sendInitRequest(initDifficulty) {
     $.ajax({
         url: "/difficulty",
         type: "get",
-        data: "difficulty="+difficulty2,
+        data: "difficulty="+initDifficulty,
         success: function (data) {
                  console.log(data);
-                 generatedNumber = data[0].toString();
-                 seconds = data[1];
+                 generatedNumber = data.generatedNumber.toString();
+                 seconds = data.second;
                  startGame();
         },
     });
-    difficulty=difficulty2;
+    difficulty = initDifficulty;
 }
 
 function startGame() {
@@ -40,7 +39,6 @@ function submitResult(yourNumber) {
 
 function send(yourNumber) {
     var requestObject = {
-        userName: userName,
         yourNumber: yourNumber,
         generatedNumber: generatedNumber,
         difficulty: difficulty
@@ -57,6 +55,7 @@ function send(yourNumber) {
         data: requestJson,
         success:
             function (data) {
+            console.log("NI MI TORTENIUK: " + data.average)
                 renderStatistics(data);
             },
         error:
