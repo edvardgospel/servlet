@@ -55,6 +55,7 @@ function send(yourNumber) {
         data: requestJson,
         success:
             function (data) {
+            console.log("NI MI TORTENIUK: " + data.average)
                 renderStatistics(data);
             },
         error:
@@ -83,7 +84,7 @@ function capitalizeFirstLetter(string) {
 function renderStatistics(data) {
     $("#generatedNumber").html("Generated number: " + data.generatedNumber);
     $("#yourNumber").html("Your number: " + createColoredNumber(data.yourNumber, data.generatedNumber));
-    $("#percentage").html("Percentage: " + data.percentage);
-    $("#"+difficulty+"average").html(capitalizeFirstLetter(difficulty) + " average: " + data.average);
-    $("#hardestBestResult").html("Hardest best result: " + data.hardestBestResult);
+    $("#percentage").html("Percentage: " + data.percentage.toFixed(2));
+    $("#"+difficulty+"Average").html(capitalizeFirstLetter(difficulty) + " average: " + data.average.toFixed(2));
+    $("#hardestBestResult").html("Hardest best result: " + data.hardestBestResult.toFixed(2));
 }

@@ -8,7 +8,6 @@ function sendInitRequest(initDifficulty) {
         type: "get",
         data: "difficulty="+initDifficulty,
         success: function (data) {
-                 console.log(data);
                  generatedNumber = data.generatedNumber.toString();
                  seconds = data.second;
                  startGame();
@@ -46,22 +45,13 @@ function send(yourNumber) {
 
     var requestJson = JSON.stringify(requestObject);
 
-    console.log(requestJson);
     $.ajax({
         url: "/statistics",
         type: "post",
         contentType: "application/json",
         dataType: "json",
         data: requestJson,
-        success:
-            function (data) {
-            console.log("NI MI TORTENIUK: " + data.average)
-                renderStatistics(data);
-            },
-        error:
-            function (data) {
-                console.log("ERROR: " + data);
-            }
+        success: renderStatistics(data);
     });
 }
 
@@ -84,7 +74,7 @@ function capitalizeFirstLetter(string) {
 function renderStatistics(data) {
     $("#generatedNumber").html("Generated number: " + data.generatedNumber);
     $("#yourNumber").html("Your number: " + createColoredNumber(data.yourNumber, data.generatedNumber));
-    $("#percentage").html("Percentage: " + data.percentage);
-    $("#"+difficulty+"average").html(capitalizeFirstLetter(difficulty) + " average: " + data.average);
-    $("#hardestBestResult").html("Hardest best result: " + data.hardestBestResult);
+    $("#percentage").html("Percentage: " + data.percentage.toFixed(2));
+    $("#"+difficulty+"Average").html(capitalizeFirstLetter(difficulty) + " average: " + data.average.toFixed(2));
+    $("#hardestBestResult").html("Hardest best result: " + data.hardestBestResult.toFixed(2));
 }

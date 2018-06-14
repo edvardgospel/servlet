@@ -26,9 +26,6 @@ public class StatisticsManagerService {
 
     public GameInitializationResponse initializeStatistics(String userName) {
         GameInitializationResponse gameInitializationResponse = new GameInitializationResponse();
-        System.out.println("ANTIFASZ1: " + gameRepository.findAllGamesByDifficulty(EASY));
-        System.out.println("ANTIFASZ2: " + gameRepository.findAllGamesByDifficulty(MEDIUM));
-        System.out.println("ANTIFASZ3: " + gameRepository.findAllGamesByDifficulty(HARD));
         gameInitializationResponse.setEasyAverage(calculateAveragePercentage(gameRepository.findAllGamesByDifficulty(EASY), userName));
         gameInitializationResponse.setMediumAverage(calculateAveragePercentage(gameRepository.findAllGamesByDifficulty(MEDIUM), userName));
         List<GameEntity> hardGameEntities = gameRepository.findAllGamesByDifficulty(HARD);
@@ -82,24 +79,21 @@ public class StatisticsManagerService {
         if (games.size() == 0) {
             return 0.0;
         }
-        System.out.println("NAMIVAN  " + games + "  /nadad " + userName);
+        int gameCounter = 0;
         Double averagePercentage = 0.0;
         for (GameEntity game : games) {
-            System.out.println("MIAG " + game.getUserEntity().getUserName() == userName);
-            System.out.println("MIAGaa " + userName);
             if (game.getUserEntity().getUserName().equals(userName)) {
-
+                gameCounter++;
                 averagePercentage += game.getPercentage();
             }
         }
-        System.out.println("AVG   " + averagePercentage);
-        return averagePercentage / games.size();
+        return averagePercentage / gameCounter;
     }
 
     private Double calculateMaxPercentage(List<GameEntity> games, String userName) {
         Double maxPercentage = 0.0;
         for (GameEntity game : games) {
-            if (game.getUserEntity().getUserName() == userName) {
+            if (game.getUserEntity().getUserName().equals(userName)) {
                 if (game.getPercentage() > maxPercentage) {
                     maxPercentage = game.getPercentage();
                 }

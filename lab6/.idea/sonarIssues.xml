@@ -33,6 +33,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/ubb/web/labs/lab6/domain/GameInitializationResponse.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/ubb/web/labs/lab6/domain/GeneratedNumberResponse.java">
           <value>
             <set />
